@@ -35,7 +35,7 @@ export const getMarketInfoById = (marketId: CustomMarket) => {
 };
 
 const getMarketHelpData = (marketName: string) => {
-  const testChains = ['Kovan', 'Rinkeby', 'Ropsten', 'Mumbai', 'Fuji', 'Testnet'];
+  const testChains = ['Görli', 'Ropsten', 'Mumbai', 'Fuji', 'Testnet', 'Kovan', 'Rinkeby'];
   const arrayName = marketName.split(' ');
   const testChainName = arrayName.filter((el) => testChains.indexOf(el) > -1);
   const marketTitle = arrayName.filter((el) => !testChainName.includes(el)).join(' ');
@@ -60,7 +60,7 @@ type MarketLogoProps = {
 
 export const MarketLogo = ({ size, logo, testChainName }: MarketLogoProps) => {
   return (
-    <Box sx={{ mr: 2, width: size, height: size, position: 'relative', margin: '4px' }}>
+    <Box sx={{ mr: 2, width: size, height: size, position: 'relative' }}>
       <img src={logo} alt="" width="100%" height="100%" />
 
       {testChainName && (
@@ -121,7 +121,7 @@ export const MarketSwitcher = () => {
       sx={{
         mr: 2,
         '& .MuiOutlinedInput-notchedOutline': {
-          // border: 'none',
+          border: 'none',
         },
       }}
       SelectProps={{
@@ -137,7 +137,7 @@ export const MarketSwitcher = () => {
           return (
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <MarketLogo
-                size={28}
+                size={upToLG ? 32 : 28}
                 logo={network.networkLogoPath}
                 testChainName={getMarketHelpData(market.marketTitle).testChainName}
               />
@@ -145,16 +145,15 @@ export const MarketSwitcher = () => {
                 <Typography
                   variant={upToLG ? 'display1' : 'h1'}
                   sx={{
-                    fontSize: '16px',
-                    color: '#074592',
-                    lineHeight: '1.55rem',
+                    fontSize: downToXSM ? '1.55rem' : undefined,
+                    color: 'common.white',
                     mr: 1,
                   }}
                 >
                   {getMarketHelpData(market.marketTitle).name} {market.isFork ? 'Fork' : ''}
                   {upToLG && ' Market'}
                 </Typography>
-                {/* {market.v3 && (
+                {market.v3 && (
                   <Box
                     sx={{
                       color: '#fff',
@@ -165,7 +164,7 @@ export const MarketSwitcher = () => {
                   >
                     <Typography variant="subheader2">Version 3</Typography>
                   </Box>
-                )} */}
+                )}
               </Box>
             </Box>
           );
@@ -175,12 +174,12 @@ export const MarketSwitcher = () => {
             p: 0,
             backgroundColor: 'transparent !important',
           },
-          '.MuiSelect-icon': { color: '#074592' },
+          '.MuiSelect-icon': { color: '#F1F1F3' },
         },
         MenuProps: {
           anchorOrigin: {
             vertical: 'bottom',
-            horizontal: 'center',
+            horizontal: 'right',
           },
           PaperProps: {
             style: {
@@ -192,17 +191,15 @@ export const MarketSwitcher = () => {
         },
       }}
     >
-      {/* <Box>
+      <Box>
         <Typography variant="subheader2" color="text.secondary" sx={{ px: 4, pt: 2 }}>
           <Trans>
-            {ENABLE_TESTNET || STAGING_ENV
-              ? 'Select Monetaria Testnet Market'
-              : 'Select Monetaria Market'}
+            {ENABLE_TESTNET || STAGING_ENV ? 'Select Aave Testnet Market' : 'Select Aave Market'}
           </Trans>
         </Typography>
-      </Box> */}
+      </Box>
 
-      {/* {isV3MarketsAvailable && (
+      {isV3MarketsAvailable && (
         <Box sx={{ mx: '18px', display: 'flex', justifyContent: 'center' }}>
           <ToggleButtonGroup
             value={selectedMarketVersion}
@@ -227,8 +224,9 @@ export const MarketSwitcher = () => {
           >
             <ToggleButton
               value={SelectedMarketVersion.V3}
+              data-cy={`markets_switch_button_v3`}
               sx={{
-                backgroundColor: theme.palette.mode === 'dark' ? '#EAEBEF' : '#074592',
+                backgroundColor: theme.palette.mode === 'dark' ? '#EAEBEF' : '#383D51',
                 '&.Mui-selected, &.Mui-selected:hover': {
                   backgroundColor: theme.palette.mode === 'dark' ? '#292E41' : '#FFFFFF',
                   boxShadow: '0px 1px 0px rgba(0, 0, 0, 0.05)',
@@ -255,8 +253,9 @@ export const MarketSwitcher = () => {
             </ToggleButton>
             <ToggleButton
               value={SelectedMarketVersion.V2}
+              data-cy={`markets_switch_button_v2`}
               sx={{
-                backgroundColor: theme.palette.mode === 'dark' ? '#EAEBEF' : '#074592',
+                backgroundColor: theme.palette.mode === 'dark' ? '#EAEBEF' : '#383D51',
                 '&.Mui-selected, &.Mui-selected:hover': {
                   backgroundColor: theme.palette.mode === 'dark' ? '#292E41' : '#FFFFFF',
                   boxShadow: '0px 1px 0px rgba(0, 0, 0, 0.05)',
@@ -283,7 +282,7 @@ export const MarketSwitcher = () => {
             </ToggleButton>
           </ToggleButtonGroup>
         </Box>
-      )} */}
+      )}
       {availableMarkets.map((marketId: CustomMarket) => {
         const { market, network } = getMarketInfoById(marketId);
         const marketNaming = getMarketHelpData(market.marketTitle);

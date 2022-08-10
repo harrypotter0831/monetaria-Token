@@ -14,7 +14,6 @@ import { ListButtonsColumn } from '../ListButtonsColumn';
 import { ListItemUsedAsCollateral } from '../ListItemUsedAsCollateral';
 import { ListItemWrapper } from '../ListItemWrapper';
 import { ListValueColumn } from '../ListValueColumn';
-import { Link, ROUTES } from '../../../../components/primitives/Link';
 
 export const SuppliedPositionsListItem = ({
   reserve,
@@ -70,7 +69,7 @@ export const SuppliedPositionsListItem = ({
         />
       </ListColumn>
 
-      {/* <ListButtonsColumn>
+      <ListButtonsColumn>
         <Button
           disabled={!isActive}
           variant="contained"
@@ -97,14 +96,7 @@ export const SuppliedPositionsListItem = ({
             <Trans>Supply</Trans>
           </Button>
         )}
-        <Button
-          variant="outlined"
-          component={Link}
-          href={ROUTES.actions(underlyingAsset, currentMarket, "supply")}
-        >
-          <Trans>Actions</Trans>
-        </Button>
-      </ListButtonsColumn> */}
+      </ListButtonsColumn>
     </ListItemWrapper>
   );
 };

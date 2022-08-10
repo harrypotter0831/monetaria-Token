@@ -1,3 +1,3 @@
 export const uiConfig = {
-  appLogo: '/monetaria-brand.svg',
+  appLogo: '/aaveLogo.svg',
 };

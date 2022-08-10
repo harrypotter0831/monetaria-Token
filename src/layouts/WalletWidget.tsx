@@ -1,6 +1,5 @@
 import { DuplicateIcon, LogoutIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon, ChevronUpIcon, ExternalLinkIcon } from '@heroicons/react/solid';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import { Trans } from '@lingui/macro';
 import {
   Box,
@@ -20,7 +19,6 @@ import {
   useTheme,
 } from '@mui/material';
 import makeBlockie from 'ethereum-blockies-base64';
-import stubTrue from 'lodash/stubTrue';
 import React, { useEffect, useState } from 'react';
 import { WalletModal } from 'src/components/WalletConnection/WalletModal';
 import { useWalletModalContext } from 'src/hooks/useWalletModal';
@@ -80,7 +78,7 @@ export default function WalletWidget({ open, setOpen, headerHeight }: WalletWidg
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (!connected) {
-      setWalletModalOpen(stubTrue);
+      setWalletModalOpen(true);
     } else {
       setOpen(true);
       setAnchorEl(event.currentTarget);
@@ -302,11 +300,10 @@ export default function WalletWidget({ open, setOpen, headerHeight }: WalletWidg
       {md && connected && open ? (
         <MobileCloseButton setOpen={setOpen} />
       ) : loading ? (
-        <Skeleton height={36} width={126} sx={{ background: '#074592' }} />
+        <Skeleton height={36} width={126} sx={{ background: '#383D51' }} />
       ) : (
         <Button
-          // variant={connected ? 'surface' : 'gradient'}
-          variant={"contained"}
+          variant={connected ? 'surface' : 'gradient'}
           aria-label="wallet"
           id="wallet-button"
           aria-controls={open ? 'wallet-button' : undefined}
@@ -316,18 +313,8 @@ export default function WalletWidget({ open, setOpen, headerHeight }: WalletWidg
           sx={{
             p: connected ? '5px 8px' : undefined,
             minWidth: hideWalletAccountText ? 'unset' : undefined,
-            // backgroundColor: '#074592',
           }}
-          // startIcon={connected && !hideWalletAccountText && accountAvatar}
-          startIcon={
-            <SvgIcon
-              sx={{
-                display: { xs: 'none', md: 'block' },
-              }}
-            >
-              <AccountBalanceWalletIcon />
-            </SvgIcon>
-          }
+          startIcon={connected && !hideWalletAccountText && accountAvatar}
           endIcon={
             connected &&
             !hideWalletAccountText && (

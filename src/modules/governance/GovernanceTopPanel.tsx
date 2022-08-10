@@ -20,6 +20,7 @@ function ExternalLink({ text, href }: ExternalLinkProps) {
       component={Link}
       href={href}
       target="_blank"
+      rel="noopener"
     >
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         {text}
@@ -45,15 +46,15 @@ export const GovernanceTopPanel = () => {
               variant={downToXSM ? 'h2' : upToLG ? 'display1' : 'h1'}
               sx={{ ml: 2, mr: 3 }}
             >
-              <Trans>MNT Governance</Trans>
+              <Trans>Aave Governance</Trans>
             </Typography>
           </Box>
 
           <Typography sx={{ color: '#8E92A3', maxWidth: '824px' }}>
             <Trans>
-              MNT is a fully decentralized, community governed protocol by the MNT token-holders.
-              MNT token-holders collectively discuss, propose, and vote on upgrades to the
-              protocol. MNT token-holders can either vote themselves on new proposals or delagate
+              Aave is a fully decentralized, community governed protocol by the AAVE token-holders.
+              AAVE token-holders collectively discuss, propose, and vote on upgrades to the
+              protocol. AAVE token-holders can either vote themselves on new proposals or delagate
               to an address of choice. To learn more check out the Governance documentation
             </Trans>{' '}
             <Link

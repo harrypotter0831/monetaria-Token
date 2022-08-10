@@ -1,7 +1,6 @@
 import { InterestRate } from '@aave/contract-helpers';
 import { Trans } from '@lingui/macro';
 import {
-  Alert,
   Box,
   Button,
   CircularProgress,
@@ -35,15 +34,15 @@ import { Link, ROUTES } from '../../components/primitives/Link';
 import { getEmodeMessage } from '../../components/transactions/Emode/EmodeNaming';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 import { ConnectWalletButton } from 'src/components/WalletConnection/ConnectWalletButton';
-import borderGradient from "src/layouts/borderGradient";
-
+import { Warning } from 'src/components/primitives/Warning';
+import { HarmonyWarning } from 'src/components/transactions/Warnings/HarmonyWarning';
 
 const PaperWrapper = ({ children }: { children: ReactNode }) => {
   return (
-    <Paper sx={{ p: 4, ...borderGradient}}>
-      {/* <Typography variant="h3" sx={{ mb: { xs: 6, xsm: 10 } }}>
+    <Paper sx={{ pt: 4, pb: { xs: 4, xsm: 6 }, px: { xs: 4, xsm: 6 } }}>
+      <Typography variant="h3" sx={{ mb: { xs: 6, xsm: 10 } }}>
         <Trans>Your info</Trans>
-      </Typography> */}
+      </Typography>
 
       {children}
     </Paper>
@@ -162,56 +161,49 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
             </Box>
           </Row>
         )}
-        <Alert sx={{ mb: '12px' }} severity="error" icon={true}>
+        <Warning sx={{ mb: '12px' }} severity="error" icon={true}>
           <Trans>
             Since this asset is frozen, the only available actions are withdraw and repay which can
             be accessed from the <Link href={ROUTES.dashboard}>Dashboard</Link>
           </Trans>
-        </Alert>
+        </Warning>
       </PaperWrapper>
     );
   }
 
-  let alert = <></>;
-  if (balance?.amount === '0') {
-    if (currentNetworkConfig.isTestnet) {
-      alert = (
-        <Alert severity="info" icon={false}>
-          <Trans>
-            Your {networkName} wallet is empty. Get free test {poolReserve.name} at
-          </Trans>{' '}
-          <Button
-            variant="text"
-            sx={{ verticalAlign: 'top' }}
-            onClick={() => openFaucet(underlyingAsset)}
-            disableRipple
-          >
-            <Typography variant="caption">
-              <Trans>{networkName} Faucet</Trans>
-            </Typography>
-          </Button>
-        </Alert>
-      );
-    } else {
-      alert = (
-        <Alert severity="info" icon={false}>
-          <Trans>Your {networkName} wallet is empty. Purchase or transfer assets</Trans>{' '}
-          {bridge && (
-            <Trans>
-              or use {<Link href={bridge.url}>{bridge.name}</Link>} to transfer your ETH assets.
-            </Trans>
-          )}
-        </Alert>
-      );
-    }
-  }
-
   return (
     <PaperWrapper>
-      <Row align="flex-start" mb={6}>
-        {alert}
-      </Row>
-      {/* <Row
+      {balance?.amount === '0' && (
+        <Row align="flex-start">
+          {currentNetworkConfig.isTestnet ? (
+            <Warning severity="info" icon={false}>
+              <Trans>
+                Your {networkName} wallet is empty. Get free test {poolReserve.name} at
+              </Trans>{' '}
+              <Button
+                variant="text"
+                sx={{ verticalAlign: 'top' }}
+                onClick={() => openFaucet(underlyingAsset)}
+                disableRipple
+              >
+                <Typography variant="caption">
+                  <Trans>{networkName} Faucet</Trans>
+                </Typography>
+              </Button>
+            </Warning>
+          ) : (
+            <Warning severity="info" icon={false}>
+              <Trans>Your {networkName} wallet is empty. Purchase or transfer assets</Trans>{' '}
+              {bridge && (
+                <Trans>
+                  or use {<Link href={bridge.url}>{bridge.name}</Link>} to transfer your ETH assets.
+                </Trans>
+              )}
+            </Warning>
+          )}
+        </Row>
+      )}
+      <Row
         caption={<Trans>Wallet balance</Trans>}
         align="flex-start"
         mb={6}
@@ -231,9 +223,9 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
             symbol="USD"
           />
         </Box>
-      </Row> */}
+      </Row>
 
-      {/* <Row
+      <Row
         caption={
           <AvailableTooltip
             variant="description"
@@ -248,9 +240,9 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
           variant="secondary14"
           symbol={poolReserve.symbol}
         />
-      </Row> */}
+      </Row>
 
-      {/* <Row
+      <Row
         caption={
           <AvailableTooltip
             variant="description"
@@ -271,99 +263,76 @@ export const ReserveActions = ({ underlyingAsset }: ReserveActionsProps) => {
             <Trans>Unavailable</Trans>
           </Typography>
         )}
-      </Row> */}
-
-      <Stack direction="row" justifyContent="space-between" spacing={2}>
-        <Box sx={{
-          display: 'flex',
-        }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginRight: "10px" }}>
-            <Typography variant={"secondary8"}>Wallet balance</Typography>
-            <FormattedNumber
-              value={balance?.amount || 0}
-              variant="h3"
-              symbol={poolReserve.symbol}
-            />
-          </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginRight: "10px" }}>
-            <Typography variant={"secondary8"}>Available to supply</Typography>
-            <FormattedNumber
-              value={maxAmountToSupply}
-              variant="h3"
-              symbol={poolReserve.symbol}
-            />
-          </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginRight: "10px" }}>
-            <Typography variant={"secondary8"}>Available to borrow</Typography>
-            <FormattedNumber
-              value={canBorrow ? maxAmountToBorrow : '0'}
-              variant="h3"
-              symbol={poolReserve.symbol}
-            />
-          </Box>
-        </Box>
-
-        <Stack direction="row" spacing={2}>
-          <Button
-            disabled={!canBorrow || user?.totalCollateralMarketReferenceCurrency === '0'}
-            variant="outlined"
-            onClick={() => openBorrow(underlyingAsset)}
-            fullWidth={downToXSM}
-          >
-            <Trans>Borrow</Trans> {downToXSM && poolReserve.symbol}
-          </Button>
-          <Button
-            variant="contained"
-            disabled={balance?.amount === '0'}
-            onClick={() => openSupply(underlyingAsset)}
-            fullWidth={downToXSM}
-          >
-            <Trans>Supply</Trans> {downToXSM && poolReserve.symbol}
-          </Button>
-        </Stack>
-      </Stack>
+      </Row>
 
       {balance?.amount !== '0' && user?.totalCollateralMarketReferenceCurrency === '0' && (
-        <Alert sx={{ mb: '12px' }} severity="info" icon={false}>
+        <Warning sx={{ mb: '12px' }} severity="info" icon={false}>
           <Trans>To borrow you need to supply any asset to be used as collateral.</Trans>
-        </Alert>
+        </Warning>
       )}
 
       {isolationModeBorrowDisabled && (
-        <Alert sx={{ mb: '12px' }} severity="warning" icon={false}>
+        <Warning sx={{ mb: '12px' }} severity="warning" icon={false}>
           <Trans>Collateral usage is limited because of Isolation mode.</Trans>
-        </Alert>
+        </Warning>
       )}
 
       {eModeBorrowDisabled && isolationModeBorrowDisabled && (
-        <Alert sx={{ mb: '12px' }} severity="info" icon={false}>
+        <Warning sx={{ mb: '12px' }} severity="info" icon={false}>
           <Trans>
             Borrowing is unavailable because you’ve enabled Efficiency Mode (E-Mode) and Isolation
             mode. To manage E-Mode and Isolation mode visit your{' '}
             <Link href={ROUTES.dashboard}>Dashboard</Link>.
           </Trans>
-        </Alert>
+        </Warning>
       )}
 
       {eModeBorrowDisabled && !isolationModeBorrowDisabled && (
-        <Alert sx={{ mb: '12px' }} severity="info" icon={false}>
+        <Warning sx={{ mb: '12px' }} severity="info" icon={false}>
           <Trans>
             Borrowing is unavailable because you’ve enabled Efficiency Mode (E-Mode) for{' '}
             {getEmodeMessage(user.userEmodeCategoryId, currentNetworkConfig.baseAssetSymbol)}{' '}
             category. To manage E-Mode categories visit your{' '}
             <Link href={ROUTES.dashboard}>Dashboard</Link>.
           </Trans>
-        </Alert>
+        </Warning>
       )}
 
       {!eModeBorrowDisabled && isolationModeBorrowDisabled && (
-        <Alert sx={{ mb: '12px' }} severity="info" icon={false}>
+        <Warning sx={{ mb: '12px' }} severity="info" icon={false}>
           <Trans>
             Borrowing is unavailable because you’re using Isolation mode. To manage Isolation mode
             visit your <Link href={ROUTES.dashboard}>Dashboard</Link>.
           </Trans>
-        </Alert>
+        </Warning>
       )}
+
+      <Row mb={3} />
+
+      {currentNetworkConfig.name === 'Harmony' && (
+        <Row align="flex-start" mb={3}>
+          <HarmonyWarning learnMore={true} />
+        </Row>
+      )}
+
+      <Stack direction="row" spacing={2}>
+        <Button
+          variant="contained"
+          disabled={balance?.amount === '0'}
+          onClick={() => openSupply(underlyingAsset)}
+          fullWidth={downToXSM}
+        >
+          <Trans>Supply</Trans> {downToXSM && poolReserve.symbol}
+        </Button>
+        <Button
+          disabled={!canBorrow || user?.totalCollateralMarketReferenceCurrency === '0'}
+          variant="contained"
+          onClick={() => openBorrow(underlyingAsset)}
+          fullWidth={downToXSM}
+        >
+          <Trans>Borrow</Trans> {downToXSM && poolReserve.symbol}
+        </Button>
+      </Stack>
     </PaperWrapper>
   );
 };

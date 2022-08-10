@@ -67,7 +67,7 @@ export const BorrowAssetsListItem = ({
         symbol={symbol}
       />
 
-      {/* <ListButtonsColumn>
+      <ListButtonsColumn>
         <Button
           disabled={borrowButtonDisable}
           variant="contained"
@@ -82,14 +82,7 @@ export const BorrowAssetsListItem = ({
         >
           <Trans>Details</Trans>
         </Button>
-        <Button
-          variant="outlined"
-          component={Link}
-          href={ROUTES.actions(underlyingAsset, currentMarket, "borrow")}
-        >
-          <Trans>Actions</Trans>
-        </Button>
-      </ListButtonsColumn> */}
+      </ListButtonsColumn>
     </ListItemWrapper>
   );
 };

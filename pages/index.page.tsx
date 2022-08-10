@@ -33,8 +33,9 @@ export default function Home() {
   return (
     <>
       <DashboardTopPanel />
+
       <ContentContainer>
-        {/* {currentAccount && !isPermissionsLoading && (
+        {currentAccount && !isPermissionsLoading && (
           <Box
             sx={{
               display: { xs: 'flex', lg: 'none' },
@@ -61,7 +62,7 @@ export default function Home() {
               </ToggleButton>
             </ToggleButtonGroup>
           </Box>
-        )} */}
+        )}
 
         {currentAccount && !isPermissionsLoading ? (
           <DashboardContentWrapper isBorrow={mode === 'borrow'} />

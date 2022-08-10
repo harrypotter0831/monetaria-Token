@@ -78,18 +78,37 @@ export const DashboardTopPanel = () => {
     user?.totalCollateralMarketReferenceCurrency === '0'
       ? '0'
       : valueToBigNumber(user?.totalBorrowsMarketReferenceCurrency || '0')
-        .dividedBy(user?.totalCollateralMarketReferenceCurrency || '1')
-        .toFixed();
+          .dividedBy(user?.totalCollateralMarketReferenceCurrency || '1')
+          .toFixed();
 
   const valueTypographyVariant = downToSM ? 'main16' : 'main21';
   const noDataTypographyVariant = downToSM ? 'secondary16' : 'secondary21';
 
   return (
     <>
-      <TopInfoPanel pageTitle={<Trans>Dashboard</Trans>} bridge={currentNetworkConfig.bridge}>
+      <TopInfoPanel
+        pageTitle={<Trans>Dashboard</Trans>}
+        withMarketSwitcher
+        bridge={currentNetworkConfig.bridge}
+      >
+        <TopInfoPanelItem icon={<WalletIcon />} title={<Trans>Net worth</Trans>} loading={loading}>
+          {currentAccount ? (
+            <FormattedNumber
+              value={Number(user?.netWorthUSD || 0)}
+              symbol="USD"
+              variant={valueTypographyVariant}
+              visibleDecimals={2}
+              compact
+              symbolsColor="#A5A8B6"
+              symbolsVariant={noDataTypographyVariant}
+            />
+          ) : (
+            <NoData variant={noDataTypographyVariant} sx={{ opacity: '0.7' }} />
+          )}
+        </TopInfoPanelItem>
+
         <TopInfoPanelItem
           icon={<NetAPYIcon />}
-          hideIcon
           title={
             <div style={{ display: 'flex' }}>
               <Trans>Net APY</Trans>
@@ -104,6 +123,7 @@ export const DashboardTopPanel = () => {
               variant={valueTypographyVariant}
               visibleDecimals={2}
               percent
+              symbolsColor="#A5A8B6"
               symbolsVariant={noDataTypographyVariant}
             />
           ) : (
@@ -111,50 +131,9 @@ export const DashboardTopPanel = () => {
           )}
         </TopInfoPanelItem>
 
-        <TopInfoPanelItem
-          icon={<WalletIcon />}
-          hideIcon
-          title={<Trans>My Borrow</Trans>}
-          loading={loading}
-        >
-          {currentAccount ? (
-            <FormattedNumber
-              value={Number(user?.netWorthUSD || 0)}
-              symbol="USD"
-              variant={valueTypographyVariant}
-              visibleDecimals={2}
-              compact
-              symbolsVariant={noDataTypographyVariant}
-            />
-          ) : (
-            <NoData variant={noDataTypographyVariant} sx={{ opacity: '0.7' }} />
-          )}
-        </TopInfoPanelItem>
-        <TopInfoPanelItem
-          icon={<WalletIcon />}
-          hideIcon
-          title={<Trans>My Supply</Trans>}
-          loading={loading}
-        >
-          {currentAccount ? (
-            <FormattedNumber
-              value={Number(user?.netWorthUSD || 0)}
-              symbol="USD"
-              variant={valueTypographyVariant}
-              visibleDecimals={2}
-              compact
-              symbolsVariant={noDataTypographyVariant}
-            />
-          ) : (
-            <NoData variant={noDataTypographyVariant} sx={{ opacity: '0.7' }} />
-          )}
-        </TopInfoPanelItem>
-
-
-        {/* {currentAccount && user?.healthFactor !== '-1' && (
+        {currentAccount && user?.healthFactor !== '-1' && (
           <TopInfoPanelItem
             icon={<EmptyHeartIcon />}
-            hideIcon
             title={
               <Box sx={{ display: 'inline-flex', alignItems: 'center' }}>
                 <Trans>Health factor</Trans>
@@ -174,7 +153,7 @@ export const DashboardTopPanel = () => {
             <HealthFactorNumber
               value={user?.healthFactor || '-1'}
               variant={valueTypographyVariant}
-              // onInfoClick={() => setOpen(true)}
+              onInfoClick={() => setOpen(true)}
               HALIntegrationComponent={
                 currentMarketData.halIntegration && (
                   <HALLink
@@ -186,9 +165,9 @@ export const DashboardTopPanel = () => {
               }
             />
           </TopInfoPanelItem>
-        )} */}
+        )}
 
-        {/* {currentAccount && claimableRewardsUsd > 0 && (
+        {currentAccount && claimableRewardsUsd > 0 && (
           <TopInfoPanelItem
             title={<Trans>Available rewards</Trans>}
             icon={<ClaimGiftIcon />}
@@ -208,6 +187,7 @@ export const DashboardTopPanel = () => {
                   visibleDecimals={2}
                   compact
                   symbol="USD"
+                  symbolsColor="#A5A8B6"
                   symbolsVariant={noDataTypographyVariant}
                   data-cy={'Claim_Value'}
                 />
@@ -224,17 +204,17 @@ export const DashboardTopPanel = () => {
               </Button>
             </Box>
           </TopInfoPanelItem>
-        )} */}
+        )}
       </TopInfoPanel>
 
-      {/* <LiquidationRiskParametresInfoModal
+      <LiquidationRiskParametresInfoModal
         open={open}
         setOpen={setOpen}
         healthFactor={user?.healthFactor || '-1'}
         loanToValue={loanToValue}
         currentLoanToValue={user?.currentLoanToValue || '0'}
         currentLiquidationThreshold={user?.currentLiquidationThreshold || '0'}
-      /> */}
+      />
     </>
   );
 };

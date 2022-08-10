@@ -21,7 +21,7 @@ export const PageTitle = ({ pageTitle, withMarketSwitcher }: PageTitleProps) => 
       sx={{
         display: 'flex',
         alignItems: { xs: 'flex-start', xsm: 'center' },
-        mb: pageTitle ? 0 : 0,
+        mb: pageTitle ? 4 : 0,
         flexDirection: { xs: 'column', xsm: 'row' },
       }}
     >
@@ -30,10 +30,9 @@ export const PageTitle = ({ pageTitle, withMarketSwitcher }: PageTitleProps) => 
           <Typography
             variant={downToXSM ? 'h2' : upToLG ? 'display1' : 'h1'}
             sx={{
-              color: 'text.primary',
+              color: withMarketSwitcher ? 'text.muted' : 'text.white',
               mr: { xs: 5, xsm: 3 },
               mb: { xs: 1, xsm: 0 },
-              fontSize: '24px',
             }}
           >
             {pageTitle}
@@ -45,10 +44,10 @@ export const PageTitle = ({ pageTitle, withMarketSwitcher }: PageTitleProps) => 
         sx={{
           display: 'flex',
           alignItems: 'flex-start',
-          mb: !pageTitle ? 0 : 0,
+          mb: !pageTitle ? 4 : 0,
         }}
       >
-        {/* {withMarketSwitcher && <MarketSwitcher />} */}
+        {withMarketSwitcher && <MarketSwitcher />}
         {/* <BridgeButton bridge={bridge} variant="surface" withoutIcon={!upToMD} /> */}
         {/* NOTE:// Removing for now  */}
       </Box>

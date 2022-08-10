@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/macro';
 import {
   Box,
-  Stack,
   ToggleButton,
   ToggleButtonGroup,
   Typography,
@@ -18,10 +17,6 @@ import { MainLayout } from 'src/layouts/MainLayout';
 import { ReserveActions } from 'src/modules/reserve-overview/ReserveActions';
 import { ReserveConfiguration } from 'src/modules/reserve-overview/ReserveConfiguration';
 import { ReserveTopDetails } from 'src/modules/reserve-overview/ReserveTopDetails';
-import { ReserveDetail } from 'src/modules/reserve-overview/ReserveDetail';
-import { ReserveBorrowInfo } from 'src/modules/reserve-overview/ReserveBorrowInfo';
-import { ReserveEModeInfo } from 'src/modules/reserve-overview/ReserveEModeInfo';
-import { ReserveInterestedRateModel } from 'src/modules/reserve-overview/ReserveInterestedRateModel';
 
 import { ContentContainer } from '../src/components/ContentContainer';
 
@@ -50,7 +45,7 @@ export default function ReserveOverview() {
       <ReserveTopDetails underlyingAsset={underlyingAsset} />
 
       <ContentContainer>
-        {/* <Box
+        <Box
           sx={{
             display: { xs: 'flex', lg: 'none' },
             justifyContent: { xs: 'center', xsm: 'flex-start' },
@@ -75,37 +70,29 @@ export default function ReserveOverview() {
               </Typography>
             </ToggleButton>
           </ToggleButtonGroup>
-        </Box> */}
+        </Box>
 
         <Box sx={{ display: 'flex' }}>
-          {/* * Main status and configuration panel */}
-          <Stack
-            direction={'column'}
-            spacing={4}
+          {/** Main status and configuration panel*/}
+          <Box
             sx={{
               display: { xs: !isOverview ? 'none' : 'block', lg: 'block' },
-              width: { xs: '100%', lg: 'calc(40% - 20px)' },
+              width: { xs: '100%', lg: 'calc(100% - 432px)' },
               mr: { xs: 0, lg: 4 },
             }}
           >
-            {/* {reserve && <ReserveConfiguration reserve={reserve} />} */}
-            <ReserveDetail />
-            <ReserveBorrowInfo />
-            <ReserveEModeInfo />
-          </Stack>
+            {reserve && <ReserveConfiguration reserve={reserve} />}
+          </Box>
 
-          {/* * Right panel with actions */}
-          <Stack
-            direction={'column'}
-            spacing={4}
+          {/** Right panel with actions*/}
+          <Box
             sx={{
               display: { xs: isOverview ? 'none' : 'block', lg: 'block' },
-              width: { xs: '100%', lg: '60%' },
+              width: { xs: '100%', lg: '416px' },
             }}
           >
             <ReserveActions underlyingAsset={underlyingAsset} />
-            <ReserveInterestedRateModel />
-          </Stack>
+          </Box>
         </Box>
       </ContentContainer>
     </>

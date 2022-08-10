@@ -51,7 +51,7 @@ export function FormattedNumber({
   compact,
   percent,
   symbolsVariant,
-  symbolsColor = '#080F26',
+  symbolsColor,
   ...rest
 }: FormattedNumberProps) {
   const number = percent ? Number(value) * 100 : Number(value);
@@ -82,8 +82,6 @@ export function FormattedNumber({
         alignItems: 'center',
         position: 'relative',
         ...rest.sx,
-        color: '#080F26',
-        fontWeight: 500,
       }}
       noWrap
     >

@@ -25,7 +25,6 @@ export const AssetsListItem = ({ ...reserve }: ComputedReserveData) => {
       sx={{ cursor: 'pointer' }}
       button
     >
-
       <ListColumn isRow maxWidth={280}>
         <TokenIcon symbol={reserve.iconSymbol} fontSize="large" />
         <Box sx={{ pl: 3.5, overflow: 'hidden' }}>
@@ -45,16 +44,12 @@ export const AssetsListItem = ({ ...reserve }: ComputedReserveData) => {
         {reserve.symbol === 'AMPL' && <AMPLWarning />}
       </ListColumn>
 
-      <ListColumn align='right'>
-        <Typography variant='secondary16'>$10.81b</Typography>
-      </ListColumn>
-
-      <ListColumn align='right'>
+      <ListColumn>
         <FormattedNumber compact value={reserve.totalLiquidity} variant="main16" />
         <ReserveSubheader value={reserve.totalLiquidityUSD} />
       </ListColumn>
 
-      <ListColumn align='right'>
+      <ListColumn>
         <IncentivesCard
           value={reserve.supplyAPY}
           incentives={reserve.aIncentivesData || []}
@@ -64,12 +59,12 @@ export const AssetsListItem = ({ ...reserve }: ComputedReserveData) => {
         />
       </ListColumn>
 
-      <ListColumn align='right'>
+      <ListColumn>
         <FormattedNumber compact value={reserve.totalDebt} variant="main16" />
         <ReserveSubheader value={reserve.totalDebtUSD} />
       </ListColumn>
 
-      <ListColumn align='right'>
+      <ListColumn>
         <IncentivesCard
           value={reserve.borrowingEnabled ? reserve.variableBorrowAPY : '-1'}
           incentives={reserve.vIncentivesData || []}
@@ -79,7 +74,7 @@ export const AssetsListItem = ({ ...reserve }: ComputedReserveData) => {
         />
       </ListColumn>
 
-      {/* <ListColumn>
+      <ListColumn>
         <IncentivesCard
           value={reserve.stableBorrowRateEnabled ? reserve.stableBorrowAPY : -1}
           incentives={reserve.sIncentivesData || []}
@@ -87,9 +82,9 @@ export const AssetsListItem = ({ ...reserve }: ComputedReserveData) => {
           variant="main16"
           symbolsVariant="secondary16"
         />
-      </ListColumn> */}
+      </ListColumn>
 
-      {/* <ListColumn maxWidth={95} minWidth={95} align="right">
+      <ListColumn maxWidth={95} minWidth={95} align="right">
         <Button
           variant="outlined"
           component={Link}
@@ -97,7 +92,7 @@ export const AssetsListItem = ({ ...reserve }: ComputedReserveData) => {
         >
           <Trans>Details</Trans>
         </Button>
-      </ListColumn> */}
+      </ListColumn>
     </ListItem>
   );
 };

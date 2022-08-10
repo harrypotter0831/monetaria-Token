@@ -1,9 +1,10 @@
 import { API_ETH_MOCK_ADDRESS } from '@aave/contract-helpers';
 import { Trans } from '@lingui/macro';
-import { useMediaQuery, useTheme } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import { useState } from 'react';
 import { StableAPYTooltip } from 'src/components/infoTooltips/StableAPYTooltip';
 import { VariableAPYTooltip } from 'src/components/infoTooltips/VariableAPYTooltip';
+import { HarmonyWarning } from 'src/components/transactions/Warnings/HarmonyWarning';
 import { useAppDataContext } from 'src/hooks/app-data-provider/useAppDataProvider';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
 
@@ -21,12 +22,10 @@ export default function AssetsList() {
   const { reserves, loading } = useAppDataContext();
   const { currentMarketData, currentNetworkConfig } = useProtocolDataContext();
 
-  
-  const theme = useTheme();
-  const isTableChangedToCards = useMediaQuery(theme.breakpoints.down('xsm'));
+  const isTableChangedToCards = useMediaQuery('(max-width:1125px)');
 
   const filteredData = reserves
-    .filter((res) => res.isActive && !res.isFrozen)
+    .filter((res) => res.isActive)
     .map((reserve) => ({
       ...reserve,
       ...(reserve.isWrappedBaseAsset
@@ -58,59 +57,17 @@ export default function AssetsList() {
     }
   }
 
-  // const header = [
-  //   {
-  //     title: <Trans>Asset</Trans>,
-  //     sortKey: 'symbol',
-  //   },
-  //   {
-  //     title: <Trans>Total supplied</Trans>,
-  //     sortKey: 'totalLiquidityUSD',
-  //   },
-  //   {
-  //     title: <Trans>Supply APY</Trans>,
-  //     sortKey: 'supplyAPY',
-  //   },
-  //   {
-  //     title: <Trans>Total borrowed</Trans>,
-  //     sortKey: 'totalDebtUSD',
-  //   },
-  //   {
-  //     title: (
-  //       <VariableAPYTooltip
-  //         text={<Trans>Borrow APY, variable</Trans>}
-  //         key="APY_list_variable_type"
-  //         variant="subheader2"
-  //       />
-  //     ),
-  //     sortKey: 'variableBorrowAPY',
-  //   },
-  //   {
-  //     title: (
-  //       <StableAPYTooltip
-  //         text={<Trans>Borrow APY, stable</Trans>}
-  //         key="APY_list_stable_type"
-  //         variant="subheader2"
-  //       />
-  //     ),
-  //     sortKey: 'stableBorrowAPY',
-  //   },
-  // ];
   const header = [
     {
-      title: <Trans>Asset name</Trans>,
+      title: <Trans>Asset</Trans>,
       sortKey: 'symbol',
     },
     {
-      title: <Trans>TVL</Trans>,
-      sortKey: 'tvl',
-    },
-    {
-      title: <Trans>Total supplyd</Trans>,
+      title: <Trans>Total supplied</Trans>,
       sortKey: 'totalLiquidityUSD',
     },
     {
-      title: <Trans>Supply APR</Trans>,
+      title: <Trans>Supply APY</Trans>,
       sortKey: 'supplyAPY',
     },
     {
@@ -120,12 +77,22 @@ export default function AssetsList() {
     {
       title: (
         <VariableAPYTooltip
-          text={<Trans>Borrow APY</Trans>}
+          text={<Trans>Borrow APY, variable</Trans>}
           key="APY_list_variable_type"
           variant="subheader2"
         />
       ),
-      sortKey: 'BorrowAPY',
+      sortKey: 'variableBorrowAPY',
+    },
+    {
+      title: (
+        <StableAPYTooltip
+          text={<Trans>Borrow APY, stable</Trans>}
+          key="APY_list_stable_type"
+          variant="subheader2"
+        />
+      ),
+      sortKey: 'stableBorrowAPY',
     },
   ];
 
@@ -138,12 +105,16 @@ export default function AssetsList() {
       }
       captionSize="h2"
     >
+      {currentNetworkConfig.name === 'Harmony' && (
+        <Box sx={{ mx: '24px' }}>
+          <HarmonyWarning />
+        </Box>
+      )}
       {!isTableChangedToCards && (
         <ListHeaderWrapper px={6}>
           {header.map((col) => (
             <ListColumn
               isRow={col.sortKey === 'symbol'}
-              align='right'
               maxWidth={col.sortKey === 'symbol' ? 280 : undefined}
               key={col.sortKey}
             >
@@ -158,7 +129,7 @@ export default function AssetsList() {
               </ListHeaderTitle>
             </ListColumn>
           ))}
-          {/* <ListColumn maxWidth={95} minWidth={95} /> */}
+          <ListColumn maxWidth={95} minWidth={95} />
         </ListHeaderWrapper>
       )}
 
