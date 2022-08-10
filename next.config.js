@@ -22,10 +22,4 @@ module.exports = withBundleAnalyzer({
   // assetPrefix: "./",
   trailingSlash: true,
   pageExtensions,
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
 });
