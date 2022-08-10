@@ -8,6 +8,8 @@ import POOL_CONFIG_ABI from '../../fixtures/poolConfig.json';
 const TENDERLY_KEY = Cypress.env('TENDERLY_KEY');
 const TENDERLY_ACCOUNT = Cypress.env('TENDERLY_ACCOUNT');
 const TENDERLY_PROJECT = Cypress.env('TENDERLY_PROJECT');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const request = require('request');
 
 export const DEFAULT_TEST_ACCOUNT = {
   privateKey: '2ab22efc6bc85a9cd2d6281416500d8523ba57206d94cb333cbd09977ca75479',
@@ -57,17 +59,18 @@ export class TenderlyFork {
 
   async add_balance_rpc(address: string) {
     if (!this.fork_id) throw new Error('Fork not initialized!');
-    axios({
+    const options = {
       url: this.get_rpc_url(),
       method: 'post',
       headers: { 'content-type': 'text/plain' },
-      data: JSON.stringify({
+      body: JSON.stringify({
         jsonrpc: '2.0',
         method: 'tenderly_setBalance',
         params: [address, '0x21e19e0c9bab2400000'],
         id: '1234',
       }),
-    });
+    };
+    request(options);
   }
 
   async unpauseMarket(): Promise<void> {
@@ -99,7 +102,9 @@ export class TenderlyFork {
 
   async getTopHolder(token: string) {
     const res = (
-      await axios.get(`https://api.ethplorer.io/getTopTokenHolders/${token}?apiKey=freekey`)
+      await axios.get(
+        `https://ethplorer.io/service/service.php?data=${token}&page=tab%3Dtab-holders%26pageSize%3D10%26holders%3D1`
+      )
     ).data.holders[0].address;
     return res;
   }

@@ -1,5 +1,6 @@
 import { useLingui } from '@lingui/react';
-import { Button, List, ListItem, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Button, List, ListItem, ListItemText, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Trans } from '@lingui/macro';
 import * as React from 'react';
 
 import { Link } from '../../components/primitives/Link';
@@ -55,9 +56,12 @@ export const NavItems = ({ setOpen }: NavItemsProps) => {
                 component={Link}
                 href={item.link}
                 sx={(theme) => ({
-                  color: '#F1F1F3',
-                  p: '6px 8px',
+                  color: { xs: '#F1F1F3', md: 'text.primary' },
+                  py: { xs: 1.5, md: 2 },
                   position: 'relative',
+                  '&:hover': {
+                    background: 'none',
+                  },
                   '.active&:after, &:hover&:after': {
                     transform: 'scaleX(1)',
                     transformOrigin: 'bottom left',
@@ -67,16 +71,19 @@ export const NavItems = ({ setOpen }: NavItemsProps) => {
                     position: 'absolute',
                     width: '100%',
                     transform: 'scaleX(0)',
-                    height: '2px',
-                    bottom: '-6px',
+                    height: '100%',
                     left: '0',
-                    background: theme.palette.gradients.aaveGradient,
                     transformOrigin: 'bottom right',
                     transition: 'transform 0.25s ease-out',
+                    zIndex: -1,
+                    background: 'rgba(215, 215, 215, 0.25)',
+                    borderRadius: '100px',
                   },
                 })}
               >
-                {i18n._(item.title)}
+                <ListItemText>
+                  <Trans>{i18n._(item.title)}</Trans>
+                </ListItemText>
               </Button>
             )}
           </ListItem>

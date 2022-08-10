@@ -9,10 +9,7 @@ export const ContentContainer = ({ children }: ContentContainerProps) => {
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        flex: 1,
-        mt: { xs: '-32px', lg: '-46px', xl: '-44px', xxl: '-48px' },
+        mt: '24px',
       }}
     >
       <Container>{children}</Container>

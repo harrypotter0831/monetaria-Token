@@ -8,7 +8,7 @@ msgstr ""
 "Language: el\n"
 "Project-Id-Version: aave-interface\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-08-02 18:22\n"
+"PO-Revision-Date: 2022-07-01 00:19\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -98,11 +98,11 @@ msgid "Action requires an active reserve"
 msgstr "Η δράση απαιτεί ενεργό απόθεμα"
 
 #: src/components/transactions/FlowCommons/Success.tsx
-msgid "Add to wallet"
+msgid "Add aToken to the wallet to track your supply balance."
 msgstr ""
 
 #: src/components/transactions/FlowCommons/Success.tsx
-msgid "Add {0} to wallet to track your balance."
+msgid "Add to wallet"
 msgstr ""
 
 #: src/ui-config/errorMapping.tsx
@@ -448,14 +448,6 @@ msgstr "Η χρήση εγγύησης είναι περιορισμένη λό�
 msgid "Collateralization"
 msgstr "Εξασφάλιση"
 
-#: src/modules/reserve-overview/ReserveFactorOverview.tsx
-msgid "Collector Contract"
-msgstr ""
-
-#: src/modules/reserve-overview/ReserveConfiguration.tsx
-msgid "Collector Info"
-msgstr ""
-
 #: src/components/WalletConnection/ConnectWalletButton.tsx
 #: src/layouts/WalletWidget.tsx
 msgid "Connect wallet"
@@ -605,10 +597,6 @@ msgstr "Discord"
 msgid "Due to a precision bug in the stETH contract, this asset can not be used in flashloan transactions"
 msgstr ""
 
-#: src/components/transactions/Warnings/HarmonyWarning.tsx
-msgid "Due to the Horizon bridge exploit, certain assets on the Harmony network are not at parity with Ethereum, which affects the Aave V3 Harmony market. <0>{0}</0>"
-msgstr ""
-
 #: src/modules/dashboard/DashboardEModeButton.tsx
 msgid "E-Mode"
 msgstr "E-Mode"
@@ -728,11 +716,6 @@ msgstr "Γαλλικά"
 msgid "Funds in the Safety Module"
 msgstr "Κεφάλαια στην Μονάδα Ασφάλειας"
 
-#: src/modules/staking/GetABPToken.tsx
-#: src/modules/staking/GetABPTokenModal.tsx
-msgid "Get ABP Token"
-msgstr ""
-
 #: src/ui-config/menu-items/index.tsx
 msgid "Github"
 msgstr "Github"
@@ -748,10 +731,6 @@ msgstr "Πηγαίνετε Πίσω"
 
 #: src/modules/governance/proposal/ProposalTopPanel.tsx
 msgid "Go back"
-msgstr ""
-
-#: src/modules/staking/GetABPTokenModal.tsx
-msgid "Go to Balancer Pool"
 msgstr ""
 
 #: src/ui-config/menu-items/index.tsx
@@ -1070,14 +1049,6 @@ msgstr "Η συμμετοχή σε αυτό το αποθεματικό {symbol}
 msgid "Pending..."
 msgstr "Εκκρεμεί..."
 
-#: src/modules/dashboard/lists/BorrowAssetsList/BorrowAssetsList.tsx
-msgid "Per the community, borrowing in this market is currently disabled. <0>Learn More</0>"
-msgstr ""
-
-#: src/modules/dashboard/lists/SupplyAssetsList/SupplyAssetsList.tsx
-msgid "Per the community, supplying in this market is currently disabled. <0>Learn More</0>"
-msgstr ""
-
 #: src/modules/reserve-overview/ReserveActions.tsx
 msgid "Please connect a wallet to view your personal information here."
 msgstr "Παρακαλούμε συνδέστε ένα πορτοφόλι για να δείτε τις προσωπικές σας πληροφορίες εδώ."
@@ -1182,14 +1153,6 @@ msgstr "Αποπληρώνοντας {symbol}"
 #: src/modules/reserve-overview/ReserveTopDetails.tsx
 msgid "Reserve Size"
 msgstr "Μέγεθος Αποθεματικού"
-
-#: src/modules/reserve-overview/ReserveFactorOverview.tsx
-msgid "Reserve factor"
-msgstr ""
-
-#: src/components/infoTooltips/ReserveFactorTooltip.tsx
-msgid "Reserve factor is a percentage of interest which goes to a {0} that is controlled by Aave governance to promote ecosystem growth."
-msgstr ""
 
 #: src/modules/reserve-overview/ReserveConfiguration.tsx
 msgid "Reserve status & configuration"
@@ -1328,12 +1291,12 @@ msgid "Stake"
 msgstr "Κλειδώστε"
 
 #: pages/staking.staking.tsx
-msgid "Stake AAVE"
-msgstr ""
+msgid "Stake Aave"
+msgstr "Κλειδώστε Aave"
 
 #: pages/staking.staking.tsx
-msgid "Stake ABPT"
-msgstr ""
+msgid "Stake Aave/ETH BPT"
+msgstr "Κλειδώστε Aave/ETH BPT"
 
 #: src/components/transactions/StakeCooldown/StakeCooldownModalContent.tsx
 msgid "Stake cooldown activated"
@@ -1479,9 +1442,9 @@ msgstr ""
 msgid "The % of your total borrowing power used. This is based on the amount of your collateral supplied and the total amount that you can borrow."
 msgstr "Το % της συνολικής δανειοληπτικής σας δύναμης που χρησιμοποιείται. Αυτό βασίζεται στο ποσό της παρεχόμενης εξασφάλισής σας και στο συνολικό ποσό που μπορείτε να δανειστείτε."
 
-#: src/modules/staking/GetABPTokenModal.tsx
-msgid "The Aave Balancer Pool Token (ABPT) is a liquidity pool token. You can receive ABPT by depositing a combination of AAVE + ETH in the Balancer liquidity pool. You can then stake your BPT in the Safety Module to secure the protocol and earn Safety Incentives."
-msgstr ""
+#: pages/staking.staking.tsx
+msgid "The Balancer Pool Token (BPT) is a liquidity pool token. You can receive BPT by depositing a combination of AAVE + ETH in the <0>Balancer liquidity pool</0>. You can then stake your BPT in the Safety Module to secure the protocol and earn Safety Incentives."
+msgstr "Το Balancer Pool Token (BPT) είναι ένα token συγκέντρωσης ρευστότητας. Μπορείτε να λάβετε το BPT καταθέτοντας έναν συνδυασμό AAVE + ETH στην <0>Πληρότητα του ταμείου ρευστότητας του Balancer</0>. Στη συνέχεια, μπορείτε να κλειδώσετε το BPT σας στη μονάδα ασφαλείας για να διασφαλίσετε το πρωτόκολλο και να κερδίσετε κίνητρα ασφαλείας."
 
 #: src/components/infoTooltips/MaxLTVTooltip.tsx
 msgid "The Maximum LTV ratio represents the maximum borrowing power of a specific collateral. For example, if a collateral has an LTV of 75%, the user can borrow up to 0.75 worth of ETH in the principal currency for every 1 ETH worth of collateral."
@@ -1756,8 +1719,8 @@ msgid "Variable debt supply is not zero"
 msgstr "Η προσφορά μεταβλητού χρέους δεν είναι μηδενική"
 
 #: src/components/infoTooltips/VariableAPYTooltip.tsx
-msgid "Variable interest rate will <0>fluctuate</0> based on the market conditions. Recommended for short-term positions."
-msgstr ""
+msgid "Variable interest rate will <0>fluctuate</0> based on the market conditions. Recommended for short-term loans."
+msgstr "Το μεταβλητό επιτόκιο θα <0>μεταβάλλεται</0> ανάλογα με τις συνθήκες της αγοράς. Συνιστάται για βραχυπρόθεσμα δάνεια."
 
 #: src/components/MarketSwitcher.tsx
 msgid "Version 2"
@@ -1765,10 +1728,6 @@ msgstr ""
 
 #: src/components/MarketSwitcher.tsx
 msgid "Version 3"
-msgstr ""
-
-#: src/modules/reserve-overview/ReserveFactorOverview.tsx
-msgid "View contract"
 msgstr ""
 
 #: src/modules/markets/AssetsListMobileItem.tsx
@@ -2083,7 +2042,7 @@ msgid "{0} Faucet"
 msgstr "{0} Βρύση"
 
 #: src/modules/reserve-overview/ReserveConfiguration.tsx
-msgid "{0} is frozen due to an Aave community decision. <0>More details</0>"
+msgid "{0} is frozen due to an Aave Protocol Governance decision. <0>More details</0>"
 msgstr ""
 
 #: src/modules/staking/StakingPanel.tsx

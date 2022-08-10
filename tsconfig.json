@@ -24,7 +24,7 @@
     "isolatedModules": true,
     "incremental": true,
     "useUnknownInCatchVariables": false,
-    "types": ["cypress", "cypress-wait-until"],
+    "types": ["cypress"]
   },
   "exclude": [
     "dist",

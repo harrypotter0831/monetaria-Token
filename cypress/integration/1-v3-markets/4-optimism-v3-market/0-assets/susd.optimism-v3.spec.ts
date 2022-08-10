@@ -44,7 +44,7 @@ const testData = {
     ],
     withdraw: {
       asset: assets.optimismMarket.sUSD,
-      isCollateral: true,
+      isCollateral: false,
       amount: 1,
       hasApproval: true,
     },
@@ -56,7 +56,7 @@ const testData = {
         assetName: assets.optimismMarket.sUSD.shortName,
         amount: 7.0,
         collateralType: constants.collateralType.isNotCollateral,
-        isCollateral: true,
+        isCollateral: false,
       },
       {
         type: constants.dashboardTypes.borrow,

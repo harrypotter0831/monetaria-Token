@@ -121,14 +121,11 @@ export const TxSuccessView = ({
             >
               <TokenIcon
                 symbol={symbol}
-                aToken={addToken && addToken.aToken ? true : false}
+                aToken={true}
                 sx={{ fontSize: '32px', mt: '12px', mb: '8px' }}
               />
               <Typography variant="description" color="text.primary" sx={{ mx: '24px' }}>
-                <Trans>
-                  Add {addToken && addToken.aToken ? 'aToken ' : 'token '} to wallet to track your
-                  balance.
-                </Trans>
+                <Trans>Add aToken to the wallet to track your supply balance.</Trans>
               </Typography>
               <Button
                 onClick={() => {
@@ -178,7 +175,7 @@ export const TxSuccessView = ({
           }}
           underline="hover"
           target="_blank"
-          rel="noreferrer noopener"
+          rel="noreferrer"
         >
           <Trans>Review tx details</Trans>
           <ExtLinkIcon />

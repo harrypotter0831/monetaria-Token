@@ -1,7 +1,7 @@
 import { API_ETH_MOCK_ADDRESS, InterestRate } from '@aave/contract-helpers';
 import { USD_DECIMALS, valueToBigNumber } from '@aave/math-utils';
 import { Trans } from '@lingui/macro';
-import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { Alert, Box, useMediaQuery, useTheme } from '@mui/material';
 import { fetchIconSymbolAndName } from 'src/ui-config/reservePatches';
 
 import { CapType } from '../../../../components/caps/helper';
@@ -21,7 +21,6 @@ import { BorrowAssetsItem } from './types';
 import { Link } from '../../../../components/primitives/Link';
 import { VariableAPYTooltip } from 'src/components/infoTooltips/VariableAPYTooltip';
 import { StableAPYTooltip } from 'src/components/infoTooltips/StableAPYTooltip';
-import { Warning } from 'src/components/primitives/Warning';
 
 export const BorrowAssetsList = () => {
   const { currentNetworkConfig } = useProtocolDataContext();
@@ -103,73 +102,59 @@ export const BorrowAssetsList = () => {
   if (loading)
     return <ListLoader title={<Trans>Assets to borrow</Trans>} head={head} withTopMargin />;
 
-  const borrowDisabled = !borrowReserves.length;
   return (
-    <ListWrapper
-      title={<Trans>Assets to borrow</Trans>}
-      localStorageName="borrowAssetsDashboardTableCollapse"
-      withTopMargin
-      noData={borrowDisabled}
-      subChildrenComponent={
-        <Box sx={{ px: 6, mb: 4 }}>
-          {borrowDisabled && currentNetworkConfig.name === 'Harmony' ? (
-            <Warning severity="warning">
-              <Trans>
-                Per the community, borrowing in this market is currently disabled.{' '}
-                <Link
-                  href="https://governance.aave.com/t/harmony-horizon-bridge-exploit-consequences-to-aave-v3-harmony/8614"
-                  target="_blank"
-                >
-                  Learn More
-                </Link>
-              </Trans>
-            </Warning>
-          ) : (
-            <>
+    <>
+      {!!tokensToBorrow.length && (
+        <ListWrapper
+          title={<Trans>Assets to borrow</Trans>}
+          localStorageName="borrowAssetsDashboardTableCollapse"
+          withTopMargin
+          subChildrenComponent={
+            <Box sx={{ px: 6, mb: 4 }}>
               {+collateralUsagePercent >= 0.98 && (
-                <Warning severity="error">
+                <Alert sx={{ mb: '12px' }} severity="error">
                   <Trans>
                     Be careful - You are very close to liquidation. Consider depositing more
                     collateral or paying down some of your borrowed positions
                   </Trans>
-                </Warning>
+                </Alert>
               )}
               {user?.isInIsolationMode && (
-                <Warning severity="warning">
+                <Alert sx={{ mb: '12px' }} severity="warning">
                   <Trans>Borrowing power and assets are limited due to Isolation mode. </Trans>
-                  <Link href="https://docs.aave.com/faq/" target="_blank" rel="noopener">
+                  <Link href="https://docs.aave.com/faq/" target="_blank">
                     Learn More
                   </Link>
-                </Warning>
+                </Alert>
               )}
               {user?.isInEmode && (
-                <Warning severity="warning">
+                <Alert sx={{ mb: '12px' }} severity="warning">
                   <Trans>
                     In E-Mode some assets are not borrowable. Exit E-Mode to get access to all
                     assets
                   </Trans>
-                </Warning>
+                </Alert>
               )}
               {user?.totalCollateralMarketReferenceCurrency === '0' && (
-                <Warning severity="info">
+                <Alert severity="info">
                   <Trans>To borrow you need to supply any asset to be used as collateral.</Trans>
-                </Warning>
+                </Alert>
               )}
-            </>
-          )}
-        </Box>
-      }
-    >
-      <>
-        {!downToXSM && !!borrowReserves.length && <ListHeader head={head} />}
-        {borrowReserves.map((item, index) =>
-          downToXSM ? (
-            <BorrowAssetsListMobileItem {...item} key={index} />
-          ) : (
-            <BorrowAssetsListItem {...item} key={index} />
-          )
-        )}
-      </>
-    </ListWrapper>
+            </Box>
+          }
+        >
+          <>
+            {!downToXSM && <ListHeader head={head} />}
+            {borrowReserves.map((item, index) =>
+              downToXSM ? (
+                <BorrowAssetsListMobileItem {...item} key={index} />
+              ) : (
+                <BorrowAssetsListItem {...item} key={index} />
+              )
+            )}
+          </>
+        </ListWrapper>
+      )}
+    </>
   );
 };

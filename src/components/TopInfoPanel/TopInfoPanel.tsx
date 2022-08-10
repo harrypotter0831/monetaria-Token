@@ -1,8 +1,9 @@
-import { Box, Container } from '@mui/material';
+import { Box, Container, Paper } from '@mui/material';
 import { ReactNode } from 'react';
 
 import { PageTitle, PageTitleProps } from './PageTitle';
 
+import borderGradient from "src/layouts/borderGradient";
 interface TopInfoPanelProps extends PageTitleProps {
   children?: ReactNode;
   titleComponent?: ReactNode;
@@ -16,16 +17,26 @@ export const TopInfoPanel = ({
   children,
 }: TopInfoPanelProps) => {
   return (
-    <Box
-      sx={{
-        bgcolor: 'background.header',
-        pt: { xs: 10, md: 12 },
-        pb: { xs: 18, md: 20, lg: '94px', xl: '92px', xxl: '96px' },
-        color: '#F1F1F3',
-      }}
-    >
-      <Container sx={{ pb: 0 }}>
-        <Box sx={{ px: { xs: 4, xsm: 6 } }}>
+    <Container sx={{ pb: 0, flexGrow: 0 }}>
+      <Paper
+        sx={{
+          bgcolor: 'background.header',
+          py: { xs: 9, md: 10, lg: '20px', xl: '20px', xxl: '20px' },
+          mt: '24px',
+          color: '#F1F1F3',
+          ...borderGradient
+        }}
+      >
+        <Box sx={{
+          px: { xs: 4, xsm: 6 },
+          display: 'flex',
+          flexDirection: {
+            lg: 'row',
+            md: 'row',
+            xs: 'column',
+            xsm: 'column',
+          }, justifyContent: 'space-between'
+        }}>
           {!titleComponent && (
             <PageTitle
               pageTitle={pageTitle}
@@ -33,22 +44,22 @@ export const TopInfoPanel = ({
               bridge={bridge}
             />
           )}
-
-          {titleComponent && titleComponent}
+          <Box sx={{ marginBottom: '10px' }}>
+            {titleComponent && titleComponent}
+          </Box>
 
           <Box
             sx={{
               display: 'flex',
               alignItems: 'flex-start',
-              gap: { xs: 3, xsm: 8 },
+              gap: 8,
               flexWrap: 'wrap',
-              width: '100%',
             }}
           >
             {children}
           </Box>
         </Box>
-      </Container>
-    </Box>
+      </Paper >
+    </Container>
   );
 };

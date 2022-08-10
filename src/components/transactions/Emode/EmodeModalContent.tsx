@@ -139,7 +139,6 @@ export const EmodeModalContent = () => {
               component={Link}
               href="https://docs.aave.com/faq/aave-v3-features#high-efficiency-mode-e-mode"
               target="_blank"
-              rel="noopener"
             >
               FAQ
             </Button>{' '}
@@ -184,7 +183,6 @@ export const EmodeModalContent = () => {
             <Link
               href="https://docs.aave.com/faq/aave-v3-features#high-efficiency-mode-e-mode"
               target="_blank"
-              rel="noopener"
             >
               FAQ guide
             </Link>{' '}

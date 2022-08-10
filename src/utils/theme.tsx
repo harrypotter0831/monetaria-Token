@@ -18,7 +18,7 @@ const {
   typography: { pxToRem },
 } = theme;
 
-const FONT = 'Inter, Arial';
+const FONT = 'Gilroy, Arial';
 
 declare module '@mui/material/styles/createPalette' {
   interface PaletteColor extends ColorPartial {}
@@ -127,7 +127,7 @@ export const getDesignTokens = (mode: 'light' | 'dark') => {
     palette: {
       mode,
       primary: {
-        main: getColor('#383D51', '#EAEBEF'),
+        main: getColor('#074592', '#EAEBEF'),
         light: getColor('#62677B', '#F1F1F3'),
         dark: getColor('#292E41', '#D2D4DC'),
       },
@@ -173,8 +173,8 @@ export const getDesignTokens = (mode: 'light' | 'dark') => {
       background: {
         default: getColor('#F1F1F3', '#1B2030'),
         paper: getColor('#FFFFFF', '#292E41'),
-        surface: getColor('#F7F7F9', '#383D51'),
-        header: getColor('#2B2D3C', '#1B2030'),
+        surface: getColor('#F7F7F9', '#074592'),
+        header: getColor('#FFFFFF', '#1B2030'),
       },
       divider: getColor('#EAEBEF', '#EBEBEF14'),
       action: {
@@ -370,7 +370,7 @@ export function getThemedComponents(theme: Theme) {
       MuiOutlinedInput: {
         styleOverrides: {
           root: {
-            borderRadius: '6px',
+            borderRadius: '8px',
             borderColor: theme.palette.divider,
             '&:hover .MuiOutlinedInput-notchedOutline': {
               borderColor: '#CBCDD8',
@@ -387,7 +387,7 @@ export function getThemedComponents(theme: Theme) {
         },
         styleOverrides: {
           root: {
-            borderRadius: '4px',
+            borderRadius: '8px',
           },
           sizeLarge: {
             ...theme.typography.buttonL,
@@ -409,7 +409,7 @@ export function getThemedComponents(theme: Theme) {
               color: theme.palette.common.white,
               border: '1px solid',
               borderColor: '#EBEBED1F',
-              backgroundColor: '#383D51',
+              backgroundColor: '#074592',
               '&:hover, &.Mui-focusVisible': {
                 backgroundColor: theme.palette.background.header,
               },
@@ -530,7 +530,8 @@ export function getThemedComponents(theme: Theme) {
       MuiPaper: {
         styleOverrides: {
           root: {
-            borderRadius: '4px',
+            borderRadius: '16px',
+            // border: `1px solid ${theme.palette.divider}`,
           },
         },
         variants: [
@@ -578,8 +579,8 @@ export function getThemedComponents(theme: Theme) {
               paddingRight: '96px',
             },
             [theme.breakpoints.up('lg')]: {
-              paddingLeft: '20px',
-              paddingRight: '20px',
+              paddingLeft: '96px',
+              paddingRight: '96px',
             },
             [theme.breakpoints.up('xl')]: {
               maxWidth: 'unset',
@@ -773,6 +774,7 @@ export function getThemedComponents(theme: Theme) {
             fontWeight: 400,
             fontSize: pxToRem(14),
             minWidth: '375px',
+            backgroundColor: 'white',
             '> div:first-of-type': {
               minHeight: '100vh',
               display: 'flex',
@@ -791,7 +793,7 @@ export function getThemedComponents(theme: Theme) {
       MuiToggleButtonGroup: {
         styleOverrides: {
           root: {
-            backgroundColor: '#383D51',
+            backgroundColor: '#074592',
             border: '1px solid rgba(235, 235, 237, 0.12)',
             padding: '4px',
           },
@@ -802,7 +804,7 @@ export function getThemedComponents(theme: Theme) {
           root: {
             border: '0px',
             flex: 1,
-            backgroundColor: '#383D51',
+            backgroundColor: '#074592',
             borderRadius: '4px',
 
             '&.Mui-selected, &.Mui-selected:hover': {

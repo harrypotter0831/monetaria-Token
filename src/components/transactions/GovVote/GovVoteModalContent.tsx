@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { Typography } from '@mui/material';
 import { useModalContext } from 'src/hooks/useModal';
-import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
 import { governanceConfig } from 'src/ui-config/governanceConfig';
 import { getNetworkConfig } from 'src/utils/marketsAndNetworksConfig';
@@ -37,7 +36,6 @@ export const GovVoteModalContent = ({
 }: GovVoteModalContentProps) => {
   const { chainId: connectedChainId } = useWeb3Context();
   const { gasLimit, mainTxState: txState, txError } = useModalContext();
-  const { currentNetworkConfig, currentChainId } = useProtocolDataContext();
 
   // handle delegate address errors
   let blockingError: ErrorType | undefined = undefined;
@@ -60,14 +58,9 @@ export const GovVoteModalContent = ({
   };
 
   // is Network mismatched
-  const govChain =
-    currentNetworkConfig.isFork &&
-    currentNetworkConfig.underlyingChainId === governanceConfig.chainId
-      ? currentChainId
-      : governanceConfig.chainId;
-  const isWrongNetwork = connectedChainId !== govChain;
-
+  const govChain = governanceConfig.chainId;
   const networkConfig = getNetworkConfig(govChain);
+  const isWrongNetwork = connectedChainId !== govChain;
 
   if (txError && txError.blocking) {
     return <TxErrorView txError={txError} />;

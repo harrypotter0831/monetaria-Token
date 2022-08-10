@@ -11,7 +11,7 @@ import { GasEstimationError } from '../FlowCommons/GasEstimationError';
 import { Trans } from '@lingui/macro';
 import { useWeb3Context } from 'src/libs/hooks/useWeb3Context';
 import { useStakeData } from 'src/hooks/stake-data-provider/StakeDataProvider';
-import { stakeConfig } from 'src/ui-config/stakeConfig';
+import { getStakeConfig } from 'src/ui-config/stakeConfig';
 import { StakeRewardClaimActions } from './StakeRewardClaimActions';
 import { useModalContext } from 'src/hooks/useModal';
 import { useProtocolDataContext } from 'src/hooks/useProtocolDataContext';
@@ -30,8 +30,9 @@ export const StakeRewardClaimModalContent = ({ stakeAssetName }: StakeRewardClai
   const data = useStakeData();
   const stakeData = data.stakeGeneralResult?.stakeGeneralUIData[stakeAssetName as StakingType];
   const { chainId: connectedChainId } = useWeb3Context();
+  const stakeConfig = getStakeConfig();
   const { gasLimit, mainTxState: txState, txError } = useModalContext();
-  const { currentNetworkConfig, currentChainId } = useProtocolDataContext();
+  const { currentNetworkConfig } = useProtocolDataContext();
 
   // hardcoded as all rewards will be in aave token
   const rewardsSymbol = 'AAVE';
@@ -65,11 +66,10 @@ export const StakeRewardClaimModalContent = ({ stakeAssetName }: StakeRewardClai
   };
 
   // is Network mismatched
-  const stakingChain =
-    currentNetworkConfig.isFork && currentNetworkConfig.underlyingChainId === stakeConfig.chainId
-      ? currentChainId
-      : stakeConfig.chainId;
-  const isWrongNetwork = connectedChainId !== stakingChain;
+  const stakingChain = stakeConfig.chainId;
+  const isStakeFork =
+    currentNetworkConfig.isFork && currentNetworkConfig.underlyingChainId === stakingChain;
+  const isWrongNetwork = !isStakeFork && connectedChainId !== stakingChain;
 
   const networkConfig = getNetworkConfig(stakingChain);
 
