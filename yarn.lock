@@ -3115,10 +3115,10 @@
     "@types/react" "*"
     "@visx/point" "2.6.0"
 
-"@visx/gradient@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/@visx/gradient/-/gradient-2.1.0.tgz"
-  integrity sha512-IpmAuAPsk4XQzKB+BxZiyyWHK4Ao/fJXYuqSO1Kryp5li3wt5H7LshXn2b2Nhu9NsR2eJFU1tmH9BDD9mT/Vww==
+"@visx/gradient@^2.10.0":
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/@visx/gradient/-/gradient-2.10.0.tgz#a3905735da18c2c074edc7becc93a46f17f2e086"
+  integrity sha512-qxmIFY7aRcz0BqaH3gX0tYJu6cOJZhjTzPnHCuuxOjlF28fDDaAVG+oRqlZzYBMAvlWJ9s5qtDou7OvKJF/+2g==
   dependencies:
     "@types/react" "*"
     prop-types "^15.5.7"
