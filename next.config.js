@@ -24,5 +24,8 @@ module.exports = withBundleAnalyzer({
   pageExtensions,
   typescript: {
     ignoreBuildErrors: true,
-  }
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 });
