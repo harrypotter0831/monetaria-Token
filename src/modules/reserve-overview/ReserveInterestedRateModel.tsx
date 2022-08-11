@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Stack, Box, Typography } from "@mui/material";
 import { ReserveNormalPaper } from "./ReserveNormalPaper"
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
-import dynamic from 'next/dynamic'
+// import dynamic from 'next/dynamic'
 
-const ReactApexChart = dynamic(
-  () => import('react-apexcharts'),
-  { ssr: false }
-)
+// const ReactApexChart = dynamic(
+//   () => import('react-apexcharts'),
+//   { ssr: false }
+// )
 
 export const ReserveInterestedRateModel = () => {
     console.log('OKOKK');
@@ -83,10 +83,10 @@ export const ReserveInterestedRateModel = () => {
                     top: '19px',
                     fontSize: '14px'
                 }}>APY %</Typography>
-                {(typeof window !== 'undefined') &&
+                {/* {(typeof window !== 'undefined') &&
                     <ReactApexChart options={options} series={series} type={"area"} height={200} />
                     // <></>
-                }
+                } */}
             </Box>
         </ReserveNormalPaper>
     );
