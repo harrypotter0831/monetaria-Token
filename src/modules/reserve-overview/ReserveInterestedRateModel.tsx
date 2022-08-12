@@ -2,16 +2,17 @@ import { useState } from "react";
 import { Stack, Box, Typography } from "@mui/material";
 import { ReserveNormalPaper } from "./ReserveNormalPaper"
 import { FormattedNumber } from 'src/components/primitives/FormattedNumber';
-// import dynamic from 'next/dynamic'
+import ReactApexChart from 'react-apexcharts';
+// import { DifferencePercetage } from "./"
+import dynamic from 'next/dynamic'
 
-// const ReactApexChart = dynamic(
-//   () => import('react-apexcharts'),
-//   { ssr: false }
-// )
+const DynamicReactApexChartNoSSR = dynamic(
+  () => import('react-apexcharts'),
+  { ssr: false }
+)
 
 export const ReserveInterestedRateModel = () => {
     console.log('OKOKK');
-    // console.log(ReactApexChart)
     const [options] = useState({
         chart: {
             type: 'area',
@@ -83,10 +84,7 @@ export const ReserveInterestedRateModel = () => {
                     top: '19px',
                     fontSize: '14px'
                 }}>APY %</Typography>
-                {/* {(typeof window !== 'undefined') &&
-                    <ReactApexChart options={options} series={series} type={"area"} height={200} />
-                    // <></>
-                } */}
+                <DynamicReactApexChartNoSSR options={options} series={series} type={"area"} height={200} />
             </Box>
         </ReserveNormalPaper>
     );
